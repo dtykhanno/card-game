@@ -1,0 +1,32 @@
+package las.vegas.service;
+
+import las.vegas.model.Card;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Stack;
+
+public class Deck {
+    private final Stack<Card> cards;
+
+    private Deck(@NotNull List<Card> cards) {
+        this.cards = new Stack<>();
+        cards.forEach(card -> this.cards.push(card));
+    }
+
+    public static Deck of(@NotNull List<Card> cards) {
+        if (cards.isEmpty() || cards.size() != Card.values().length) {
+            throw new IllegalArgumentException("The deck must contain exactly " + Card.values().length + " cards");
+        }
+        return new Deck(cards);
+    }
+
+    public Card popCard() {
+        return cards.pop();
+    }
+
+    public boolean hasNextCard() {
+        return !cards.isEmpty();
+    }
+
+}
