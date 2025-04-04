@@ -11,7 +11,7 @@ public class Deck {
 
     private Deck(@NotNull List<Card> cards) {
         this.cards = new Stack<>();
-        cards.forEach(card -> this.cards.push(card));
+        cards.forEach(this.cards::push);
     }
 
     public static Deck of(@NotNull List<Card> cards) {

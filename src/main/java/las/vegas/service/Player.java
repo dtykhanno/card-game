@@ -6,38 +6,38 @@ import las.vegas.model.Card;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public abstract class Player {
     private final String name;
-    private final int order;
-    private PlayerState playerState;
+    protected PlayerState playerState = PlayerState.DRAW;
     private final List<Card> cards = new ArrayList<>();
     private int score;
 
-    public Player(String name, int order) {
+    public Player(String name) {
         this.name = name;
-        this.order = order;
     }
 
-    public static Player of(String name, int order) {
-        return new Player(name, order);
+    public PlayerState getPlayerState() {
+        return playerState;
     }
 
     public PlayerState playCard(Card card) {
         cards.add(card);
         score += card.getRank();
 
-        if (score == 21) {
-            playerState = PlayerState.WON;
-        }
-        if (score > 21 ) {
-            playerState = PlayerState.LOST;
-        }
-        if (score < 17) {
-            playerState = PlayerState.DRAW;
-        }
-        if (score >= 17 && score < 21) {
-            playerState = PlayerState.STAND;
-        }
+        playerState = applyRules(score);
         return playerState;
+    }
+
+    abstract protected PlayerState applyRules(int score);
+
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "name='" + name + '\'' +
+                ", playerState=" + playerState +
+                ", cards=" + cards +
+                ", score=" + score +
+                '}';
     }
 }

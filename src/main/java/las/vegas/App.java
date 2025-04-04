@@ -2,16 +2,26 @@ package las.vegas;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
+import las.vegas.service.Client;
+import las.vegas.service.Dealer;
 import las.vegas.service.Deck;
 import las.vegas.service.DeckReader;
 import las.vegas.service.FileDeck;
 import las.vegas.service.Player;
+import las.vegas.service.PlayerState;
 import las.vegas.service.RandomDeck;
-import org.apache.commons.lang3.StringUtils;
 
+import java.io.IOException;
 import java.util.List;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 public class App {
+    private static final int MAX_CARDS = 2;
+    public static final String SAM = "Sam";
+    public static final String DEALER = "Dealer";
+    private static final int ERROR = 1;
+
     @Parameter(
             names = "--file",
             description = "File name"
@@ -22,41 +32,62 @@ public class App {
     private boolean help;
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
         App app = new App();
         JCommander js = JCommander.newBuilder()
                 .addObject(app)
                 .build();
-
         js.parse(args);
-
         if (app.help) {
             js.usage();
         } else {
-            app.start();
+            try {
+                app.start();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+                System.exit(ERROR);
+            }
         }
     }
 
-    private void start() {
-        DeckReader fileDeck;
-        if (StringUtils.isNotBlank(file)) {
-            fileDeck = new FileDeck(file);
-        }else {
-            fileDeck = new RandomDeck();
-        }
+
+    private void start() throws IOException {
+        DeckReader fileDeck = isNotBlank(file) ? new FileDeck(file) : new RandomDeck();
+
         Deck deck = fileDeck.readDeck();
 
-        List<Player> players = List.of(Player.of("Sam", 1), Player.of("Dealer", 2));
+        Client client = Client.of(SAM);
+        Dealer dealer = Dealer.of(DEALER);
+        List<Player> players = List.of(client, dealer);
 
-        for (int i =0; i < 2; i++) {
+        for (int i = 0; i < MAX_CARDS; i++) {
             for (Player player : players) {
                 player.playCard(deck.popCard());
             }
         }
 
-        for (Player player : players) {
-            player.playCard(deck.popCard());
+        if (client.getPlayerState() == PlayerState.WON) {
+            printResults(players);
+            return;
         }
 
+        if (client.getPlayerState() == PlayerState.LOST && dealer.getPlayerState() == PlayerState.LOST) {
+            dealer.setPlayerState(PlayerState.WON);
+            printResults(players);
+            return;
+        }
+
+        while (client.getPlayerState() == PlayerState.DRAW && deck.hasNextCard()) {
+            client.playCard(deck.popCard());
+        }
+
+        while (dealer.getPlayerState() == PlayerState.DRAW && deck.hasNextCard()) {
+            dealer.playCard(deck.popCard());
+        }
+
+        printResults(players);
+    }
+
+    private void printResults(List<Player> players) {
+        players.forEach(System.out::println);
     }
 }
