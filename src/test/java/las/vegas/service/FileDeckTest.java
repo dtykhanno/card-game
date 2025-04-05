@@ -1,11 +1,14 @@
 package las.vegas.service;
 
+import las.vegas.equipment.FileDeck;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,6 +71,10 @@ class FileDeckTest {
 
 
     private Path toPath(String fileName) throws URISyntaxException {
-        return Path.of(this.getClass().getResource(fileName).toURI());
+        URL resource = this.getClass().getResource(fileName);
+        if (resource != null){
+            return  Path.of(resource.toURI());
+        }
+        throw new IllegalArgumentException("Unknown resource");
     }
 }

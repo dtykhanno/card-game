@@ -1,4 +1,4 @@
-package las.vegas.service;
+package las.vegas.equipment;
 
 import java.io.IOException;
 

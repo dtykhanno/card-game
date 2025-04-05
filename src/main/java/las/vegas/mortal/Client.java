@@ -1,4 +1,6 @@
-package las.vegas.service;
+package las.vegas.mortal;
+
+import las.vegas.equipment.PlayerState;
 
 public class Client extends Player {
     private Client(String name) {

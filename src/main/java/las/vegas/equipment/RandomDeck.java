@@ -1,6 +1,4 @@
-package las.vegas.service;
-
-import las.vegas.model.Card;
+package las.vegas.equipment;
 
 import java.util.ArrayList;
 import java.util.Arrays;

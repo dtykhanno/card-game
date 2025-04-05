@@ -1,6 +1,5 @@
-package las.vegas.service;
+package las.vegas.equipment;
 
-import las.vegas.model.Card;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.BufferedReader;

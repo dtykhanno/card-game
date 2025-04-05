@@ -2,14 +2,14 @@ package las.vegas;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
-import las.vegas.service.Client;
-import las.vegas.service.Dealer;
-import las.vegas.service.Deck;
-import las.vegas.service.DeckReader;
-import las.vegas.service.FileDeck;
-import las.vegas.service.Player;
-import las.vegas.service.PlayerState;
-import las.vegas.service.RandomDeck;
+import las.vegas.mortal.Client;
+import las.vegas.mortal.Dealer;
+import las.vegas.equipment.Deck;
+import las.vegas.equipment.DeckReader;
+import las.vegas.equipment.FileDeck;
+import las.vegas.mortal.Player;
+import las.vegas.equipment.PlayerState;
+import las.vegas.equipment.RandomDeck;
 
 import java.io.IOException;
 import java.util.List;

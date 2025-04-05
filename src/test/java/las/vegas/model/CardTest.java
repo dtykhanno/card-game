@@ -1,5 +1,6 @@
 package las.vegas.model;
 
+import las.vegas.equipment.Card;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

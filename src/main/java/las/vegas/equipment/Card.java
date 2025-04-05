@@ -1,4 +1,4 @@
-package las.vegas.model;
+package las.vegas.equipment;
 
 public enum Card {
     C2("C2", 2), C3("C3", 3), C4("C4", 4), C5("C5", 5), C6("C6", 6), C7("C7", 7), C8("C8", 8), C9("C9", 9), C10("C10", 10), CJ("CJ", 10), CD("CD", 10), CK("CK", 10), CA("CA", 11),

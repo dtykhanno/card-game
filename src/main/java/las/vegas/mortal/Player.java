@@ -1,7 +1,8 @@
-package las.vegas.service;
+package las.vegas.mortal;
 
 
-import las.vegas.model.Card;
+import las.vegas.equipment.Card;
+import las.vegas.equipment.PlayerState;
 
 import java.util.ArrayList;
 import java.util.List;
