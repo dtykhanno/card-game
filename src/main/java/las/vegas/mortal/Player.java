@@ -42,8 +42,7 @@ public abstract class Player {
         return "Player{" +
                 "name='" + name + '\'' +
                 ", hand=" + hand +
-                ", playerState=" + playerState +
-                ", score=" + score +
+                ", playerState=" + playerState  +
                 '}';
     }
 

@@ -36,7 +36,7 @@ public class BlackJack implements OneToOne {
         }
 
         // dealer wins, if both lose after 'initial hand'
-        if (client.getPlayerState() == PlayerState.LOST && (dealer.getPlayerState() == PlayerState.LOST || dealer.getPlayerState() == PlayerState.WON)) {
+        if (client.getPlayerState() == PlayerState.LOST) {
             dealer.setPlayerState(PlayerState.WON);
             printResults(players);
             return rBuilder.withWinner(dealer).withLoser(client).build();
